@@ -24,21 +24,21 @@ crmrequestheaders = {
     'Prefer': 'odata.include-annotations=OData.Community.Display.V1.FormattedValue',
     }
 
-print 'making crm request . . .'
+print ('making crm request . . .')
 crmres = requests.get(crmwebapi + crmwebapiquery,
                       headers=crmrequestheaders,
                       auth=HttpNtlmAuth(username, userpassword))
-print 'crm response received . . .'
-print 'sending data...'
+print ('crm response received . . .')
+print ('sending data...')
 
 crmins=requests.post(crmwebapi+'/contacts',data=json.dumps(payload),auth=HttpNtlmAuth(username, userpassword),headers=crmrequestheaders)
-print crmins
+print (crmins)
 try:
-    print 'parsing crm response . . .'
+    print ('parsing crm response . . .')
     crmresults = crmres.json()
     for x in crmresults['value']:
-        print x['name']
+        print (x['name'])
 except KeyError:
-    print 'Could not parse CRM results'
+    print ('Could not parse CRM results')
 
 
