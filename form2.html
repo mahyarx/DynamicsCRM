@@ -1,0 +1,44 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>jQuery.post demo</title>
+  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+</head>
+<body>
+ 
+<form action="http://192.168.100.31:9999" method="POST" id="searchForm">
+<input type="text" name="firstname" />
+<input type="text" name="lastname" />
+<input type="submit" />
+</form>
+<!-- the result of the search will be rendered inside this div -->
+<div id="result"></div>
+ 
+<script>
+// Attach a submit handler to the form
+$( "#searchForm" ).submit(function( event ) {
+ 
+  // Stop form from submitting normally
+  event.preventDefault();
+ 
+  // Get some values from elements on the page:
+  var $form = $( this ),
+    fname = $form.find( "input[name='firstname']" ).val(),
+    url = $form.attr( "action" ),
+	lname=$form.find( "input[name='lastname']" ).val();
+    data='{"firstname":"'+fname+'","lastname":"'+lname+'","mobilephone":"5555556","emailaddress1":"hello@company.net"}';
+  // Send the data using post
+  var posting = $.post( url, data );
+ 
+  // Put the results in a div
+  posting.done(function( data ) {
+    var content = $( data ).find( "#content" );
+    $( "#result" ).empty().append( content );
+  });
+});
+</script>
+ 
+</body>
+</html>
